@@ -89,6 +89,13 @@ The number of random crop & zoom images created: 7330.
 
 
 --->
+<!---
+The number of negative samples (empty images): 9249.
+
+The number of new image tiles created: 15244.
+
+IMPORTANT: 158 images were skipped because they have not yet been annotated.
+--->
 
 <!---
 
