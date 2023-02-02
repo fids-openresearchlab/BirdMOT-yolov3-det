@@ -1,5 +1,5 @@
 ![](demo_BirdMOT-det-yolov3-tiled.gif)
-# BirdMOT-det-yolov3-tiled: Flying Birds Detection 
+# BirdMOT-yolov3-det: Flying Birds Detection 
 This repository contains information and files of the yolov3 BirdMOT flying birds detector, which leverages tiling in order to detect birds in high resolution footage (3840x2160 pixels). 
 
 <!---
