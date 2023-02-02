@@ -10,7 +10,7 @@ This repository contains information and files of the yolov3 BirdMOT flying bird
 #ToDo: gif?
 --->
 
-The two Darknet Tools [DarkMark](https://github.com/stephanecharette/DarkMark/) and [DarkHelp](https://github.com/stephanecharette/DarkHelp) by Stéphane Charette have been used to create the tiled training data and to run the detection. 
+The two Darknet Tools [DarkMark](https://github.com/stephanecharette/DarkMark/) and [DarkHelp](https://github.com/stephanecharette/DarkHelp) have been used to create the tiled training data and to run the training. 
 ## Demo
 ![](demo_BirdMOT-det-yolov3-tiled.gif)
 
