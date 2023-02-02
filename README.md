@@ -1,4 +1,4 @@
-![](demo_BirdMOT-det-yolov3-tiled.gif)
+
 # BirdMOT-yolov3-det: Flying Birds Detection 
 This repository contains information and files of the yolov3 BirdMOT flying birds detector, which leverages tiling in order to detect birds in high resolution footage (3840x2160 pixels). 
 
@@ -11,6 +11,9 @@ This repository contains information and files of the yolov3 BirdMOT flying bird
 --->
 
 The two Darknet Tools [DarkMark](https://github.com/stephanecharette/DarkMark/) and [DarkHelp](https://github.com/stephanecharette/DarkHelp) by Stéphane Charette have been used to create the tiled training data and to run the detection. 
+## Demo
+![](demo_BirdMOT-det-yolov3-tiled.gif)
+
 
 ## Background
 ### Main Challenges
@@ -43,15 +46,51 @@ Following augmentation methods have shown to improve performance:
   - Saturation
   - Exposure
 
-## Results
-
 ## Train yourself
 ### 1. Install DarkMark and DarkHelp
 Install [DarkMark](https://github.com/stephanecharette/DarkMark/) and [DarkHelp](https://github.com/stephanecharette/DarkHelp) following the installation instructions in the documentation.
 
 ### 2. Download our Dataset
-- [BirdMOT-yolov-det (color)]()
-- [BirdMOT-yolov-det (gray)]()
+- [BirdMOT-yolov3-det (color)](https://mega.nz/file/66IGRCZa#Mi7-cT1aZLQd3Qm3jdyWmwIweukTeOz0uRS4RVG9msk)
+- [BirdMOT-yolov3-det (gray)](https://mega.nz/file/enYBASDI#_qCSjxHcrGQvfrf36JnirOLnO__JoCDbabBsqjToeXg)
+
+
+### 3. Prepare data and create Augmentation Data
+Decide if you want to train using the greyscale dataset or coloured dataset. Chose the DarkMark options as required in order to create the DarkMark folder, network configuration and the desired augmentation data. Here are some examples:
+#### a. Coloured Dataset based Examples
+  ```Shell
+  name="yolov3-tiny-3l-1920-1080-mixup-true-cutmix-true"
+  mkdir ./darkmark_folders
+  mkdir ./darkmark_folders/$name
+  cp -r DarkMark_09_22/* "./darkmark_folders/$name/"
+  DarkMark add="./darkmark_folders/$name/" editor=gen-darknet mosaic=false mixup=true cutmix=false resize_images=false do_not_resize_images=false tile_images=true zoom_images=true limit_validation_images=false limit_neg_samples=false  flip=true width=1920 height=1080 template="/home/fids/darknet/cfg/yolov3-tiny_3l.cfg" darknet=run
+  ```
+#### b. Greyscale Dataset based Examples
+```Shell
+name="yolov3-tiny-3l-1920-1080-mixup-true-cutmix-true-gray_incl_negatives"
+mkdir ./darkmark_folders
+mkdir ./darkmark_folders/$name
+cp -r DarkMark_09_22_gray/* "./darkmark_folders/$name/"
+DarkMark add="./darkmark_folders/$name/" editor=gen-darknet mosaic=false mixup=true cutmix=false resize_images=false do_not_resize_images=false tile_images=true zoom_images=true limit_validation_images=false limit_neg_samples=false  flip=true width=1920 height=1080 template="/home/fids/darknet/cfg/yolov3-tiny_3l.cfg" darknet=run
+```
+```Shell
+name="yolov3-tiny-3l-3840-2160-mixup-true-cutmix-true-gray_incl_negatives"
+mkdir ./darkmark_folders
+mkdir ./darkmark_folders/$name
+cp -r DarkMark_09_22_gray/* "./darkmark_folders/$name/"
+echo "bird" > ./darkmark_folders/$name/$name.names
+DarkMark add="./darkmark_folders/$name/" editor=gen-darknet mosaic=false mixup=true cutmix=false resize_images=false do_not_resize_images=false tile_images=true zoom_images=true limit_validation_images=false limit_neg_samples=false  flip=true width=3840 height=2160 template="/home/fids/darknet/cfg/yolov3-tiny_3l.cfg" darknet=run
+```
+You can also use the DarkMark GUI in order to change data preparation and augmentation settings
+
+### 4. Edit darknet config
+In the darkmark folder a .cfg file was created. Edit the file to change the network configuration.
+
+### 5. Run Training
+```Shell
+name="yolov3-tiny-3l-1920-2160-mixup-true-cutmix-true-gray_incl_negatives"
+./$name/$(echo $name)_train.sh
+```
 
 
 ## ToDo:
